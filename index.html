@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Converter</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #fce4ec; /* Light Pink background color */
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            color: #880e4f; /* Dark Pink text color */
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            color: #e91e63; /* Light Pink text color */
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #e91e63; /* Light Pink border color */
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #ff80ab; /* Dark Pink button color */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h2 {
+            color: #880e4f; /* Dark Pink text color */
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #convertedRecipe {
+            background-color: #ff80ab; /* Dark Pink background color */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            color: #fff; /* White text color */
+        }
+
+        /* Add media query for responsiveness */
+        @media (max-width: 768px) {
+            textarea {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>Recipe Converter</h1>
+
+    <label for="recipeInput">Paste your recipe:</label>
+    <textarea id="recipeInput" rows="10" cols="50"></textarea>
+
+    <button onclick="convertRecipe()">Convert</button>
+
+    <h2>Converted Recipe:</h2>
+    <div id="convertedRecipe"></div>
+
+    <script>
+        function convertRecipe() {
+            var recipeInput = document.getElementById("recipeInput").value;
+            var convertedRecipe = convertToUSMeasurements(recipeInput);
+            document.getElementById("convertedRecipe").innerText = convertedRecipe;
+        }
+
+        function convertToUSMeasurements(recipe) {
+            // Conversion logic
+            // Note: This is a simplified example and may not be accurate for all ingredients
+
+            // Convert grams to cups
+            recipe = recipe.replace(/(\d+)\s*(?:grams|g|G)\b/gi, function(match, grams) {
+                var cups = grams * 0.00422675; // 1 gram = 0.00422675 cups
+                return cups.toFixed(2) + " cups";
+            });
+
+            // Convert milliliters to teaspoons
+            recipe = recipe.replace(/(\d+)\s*(?:milliliters|ml)\b/gi, function(match, milliliters) {
+                var teaspoons = milliliters * 0.202884; // 1 milliliter = 0.202884 teaspoons
+                return teaspoons.toFixed(2) + " teaspoons";
+            });
+
+            return recipe;
+        }
+    </script>
+
+</body>
+</html>
